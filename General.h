@@ -11,6 +11,7 @@ public:
 
 	void Print();
 	void AddHypothesis(Instance d);
+	void RemoveHypothesis(Instance d);
 	void RemoveInconsistent(Instance x);
 	bool isEqual(General G);
 

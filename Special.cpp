@@ -33,8 +33,6 @@ void Special::Generalize(Instance d){
    }
    if (S[0].type == 2){
       SetInstance(d);
-      S[0].type = 1;
-      S[0].isPositive = true;
    }
 
    for (int i = 0; i < 5; ++i)

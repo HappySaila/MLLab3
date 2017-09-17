@@ -19,6 +19,53 @@ int main()
 {
 	cout << "Candidate Elimination: " << endl;
 	Test();
+	CEMain m;
+	Instance I1("Japan", "Honda", "Blue", "1980", "Economy", 1);
+	Instance I2("Japan", "Toyota", "Green", "1970", "Sports", 0);
+	Instance I3("Japan", "Toyota", "Blue", "1990", "Economy", 1);
+	Instance I4("USA", "Chrysler", "Red", "1980", "Economy", 0);
+	Instance I5("Japan", "Honda", "White", "1980", "Economy", 1);
+	vector<Instance> D;
+	D.push_back(I1);
+	D.push_back(I2);
+	D.push_back(I3);
+	D.push_back(I4);
+	D.push_back(I5);
+	int count = 0;
+	Instance root("Japan", "Honda", "White", "1980", "Economy", 1);
+	bool branched = false;
+	for (Instance d : D)
+	{
+		if (d.isPositive){
+			m.S->Generalize(d);
+			m.G->RemoveInconsistent(m.S->GetInstance());
+		} else {
+			for (Instance g : m.G->G){
+				for (int n = 0; n < 5; ++n)
+				{
+					if (m.IsSpecialTerm(g, n, d)){
+						Instance x = m.CreateInstance(g, n, m.GetSpecialTerm(g, n, d));
+						if (m.IsConsistentS(x)){
+							m.G->AddHypothesis(x);
+							branched = true;
+							root = g;
+						}
+					}
+				}
+			}
+			//remove all g in G that have some g more specific than g
+			if (branched){
+				branched = false;
+				m.G->RemoveHypothesis(root);
+			}
+		}
+
+		//end of an iteration
+		cout << "Trained with: "; d.Print();
+		m.S->Print();
+		m.G->Print();
+		cout << endl;
+	}
 }
 
 void Test(){
@@ -238,7 +285,6 @@ void Test5(){
 	} else {
 		cout << "test 5.4 failed" << endl;
 	}
-
 }
 
 

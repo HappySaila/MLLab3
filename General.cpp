@@ -14,6 +14,7 @@ General::~General(){
 }
 
 void General::Print(){
+   cout << "General Case: ";
    for (int i = 0; i < G.size(); ++i)
    {
       G[i].Print();
@@ -23,6 +24,23 @@ void General::Print(){
 void General::AddHypothesis(Instance d){
    G.push_back(d);
    //remove some hypothesis in G that is more general than d.
+}
+
+void General::RemoveHypothesis(Instance d){
+   vector<Instance> newHypothesis;
+
+   for (Instance g : G)
+   {
+      if (!g.isEqual(d)){
+         newHypothesis.push_back(g);
+      }
+   }
+
+   G.clear();
+   for (int i = 0; i < newHypothesis.size(); ++i)
+   {
+      G.push_back(newHypothesis[i]);
+   }
 }
 
 void General::RemoveInconsistent(Instance x){
