@@ -25,8 +25,8 @@ void Test(){
 	Test1();
 	Test2();
 	Test3();
-	// Test4();
-	// Test5();
+	Test4();
+	Test5();
 }
 
 void Test1(){
@@ -155,11 +155,90 @@ void Test3(){
 	}
 
 	//test 2
-	if (m.IsSpecialTerm(m.G->G[0], 0, d) && m.GetSpecialTerm(m.G->G[0], 0, d) == "1"){
-		cout << "test 3.1 passed." << endl;
+	if (!m.IsSpecialTerm(m.G->G[0], 1, d)){
+		cout << "test 3.2 passed." << endl;
 	} else {
-		cout << "test 3.1 failed" << endl;
+		cout << "test 3.2 failed" << endl;
 	}
+
+	//test 3
+	if (!m.IsSpecialTerm(m.G->G[0], 2, d)){
+		cout << "test 3.3 passed." << endl;
+	} else {
+		cout << "test 3.3 failed" << endl;
+	}
+
+	//test 4
+	if (m.IsSpecialTerm(m.G->G[0], 3, d) && m.GetSpecialTerm(m.G->G[0], 3, d) == "4"){
+		cout << "test 3.4 passed." << endl;
+	} else {
+		cout << "test 3.4 failed" << endl;
+	}
+
+	//test 5
+	if (!m.IsSpecialTerm(m.G->G[0], 4, d)){
+		cout << "test 3.5 passed." << endl;
+	} else {
+		cout << "test 3.5 failed" << endl;
+	}
+}
+
+void Test4(){
+	//create a specified case from some g given d
+	CEMain m;
+	Instance gInit("1", "?", "2", "?", "3", 1);
+
+	Instance I = m.CreateInstance(gInit, 1, "6");
+	Instance t1("1", "6", "2", "?", "3", 1);
+	
+	if (t1.isEqual(I)){
+		cout << "test 4.1 passed." << endl;
+	} else {
+		cout << "test 4.1 failed." << endl;
+	}
+
+	Instance I2 = m.CreateInstance(I, 3, "6");
+	Instance t2("1", "6", "2", "6", "3", 1);
+	if (t2.isEqual(I2)){
+		cout << "test 4.2 passed." << endl;
+	} else {
+		cout << "test 4.2 failed." << endl;
+	}
+}
+
+void Test5(){
+	CEMain m;
+	Instance s("1", "?", "2", "?", "3", 1);
+	m.S->Generalize(s);
+
+	Instance x("?", "?", "?", "?", "?", 1);
+	if (m.IsConsistentS(x)){
+		cout << "test 5.1 passed." << endl;
+	} else {
+		cout << "test 5.1 failed" << endl;
+	}
+
+	Instance x2("1", "?", "2", "?", "3", 1);
+	if (m.IsConsistentS(x2)){
+		cout << "test 5.2 passed." << endl;
+	} else {
+		cout << "test 5.2 failed" << endl;
+	}
+
+	Instance x3("1", "?", "3", "?", "3", 1);
+	if (!m.IsConsistentS(x3)){
+		cout << "test 5.3 passed." << endl;
+	} else {
+		cout << "test 5.3 failed" << endl;
+	}
+
+	Instance x4("?", "2", "2", "2", "3", 1);
+	if (m.IsConsistentS(x4)){
+		cout << "test 5.4 passed." << endl;
+	} else {
+		cout << "test 5.4 failed" << endl;
+	}
+
 }
 
 

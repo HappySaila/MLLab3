@@ -15,6 +15,9 @@ public:
 
 	bool IsSpecialTerm(Instance g, int n, Instance d);
 	std::string GetSpecialTerm(Instance g, int n, Instance d);
+	Instance CreateInstance(Instance g, int n, std::string t);
+	bool IsConsistentS(Instance d);
+
 };
 
 #endif
